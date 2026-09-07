@@ -1,0 +1,40 @@
+# Graph represented as an adjacency list
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+visited = set()
+
+def dfs(node, goal, path):
+    visited.add(node)
+    path.append(node)
+
+    # Check if goal is reached
+    if node == goal:
+        return True
+
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            if dfs(neighbor, goal, path):
+                return True
+
+    path.pop()
+    return False
+
+
+# Start and goal nodes
+start = 'A'
+goal = 'F'
+
+path = []
+
+if dfs(start, goal, path):
+    print("Path found:", " -> ".join(path))
+else:
+    print("No path found")
